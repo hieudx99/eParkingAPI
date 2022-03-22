@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface CustomerService {
     public Optional<Customer> findByUsernameAndPassword(String username, String password);
     public Optional<Customer> findById(int id);
+    public Customer register(Customer customer);
 }

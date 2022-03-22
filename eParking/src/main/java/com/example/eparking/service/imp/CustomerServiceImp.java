@@ -23,4 +23,9 @@ public class CustomerServiceImp implements CustomerService {
     public Optional<Customer> findById(int id) {
         return customerRepository.findById(id);
     }
+
+    @Override
+    public Customer register(Customer customer) {
+        return customerRepository.saveAndFlush(customer);
+    }
 }

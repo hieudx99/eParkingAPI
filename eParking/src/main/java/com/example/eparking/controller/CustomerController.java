@@ -21,11 +21,13 @@ public class CustomerController {
                 (credential.getUsername(), credential.getPassword());
     }
 
-
-
     @GetMapping("/findbyid")
     public Optional<Customer> getCustomerById(@RequestParam int id) {
         return customerService.findById(id);
     }
 
+    @PostMapping("/register")
+    public Customer register(@RequestBody Customer customer) {
+        return customerService.register(customer);
+    }
 }

@@ -15,11 +15,13 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Optional<Customer> checkLogin(@RequestBody Credential credential) {
         return customerService.findByUsernameAndPassword
                 (credential.getUsername(), credential.getPassword());
     }
+
+
 
     @GetMapping("/findbyid")
     public Optional<Customer> getCustomerById(@RequestParam int id) {

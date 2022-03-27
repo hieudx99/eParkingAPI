@@ -52,7 +52,7 @@ ALTER TABLE tbl_bill ADD CONSTRAINT FKtbl_bill625386 FOREIGN KEY (payment_method
 ALTER TABLE tbl_bill ADD CONSTRAINT FKtbl_bill772327 FOREIGN KEY (parking_slotid) REFERENCES tbl_parking_slot (id);
 ALTER TABLE tbl_bill ADD CONSTRAINT FKtbl_bill706365 FOREIGN KEY (carid) REFERENCES tbl_car (id);
 
-INSERT INTO `eparking`.`tbl_role`(`name`) values ('customer');
+INSERT INTO `eparking`.`tbl_role`(`name`) values ('user');
 INSERT INTO `eparking`.`tbl_role`(`name`) VALUES ('admin');
 INSERT INTO `eparking`.`tbl_user` (`fullname`, `identity_card`, `telephone`, `address`, `username`, `password`, `roleid`) VALUES ('Vu Duc Duy', '038099887766', '0971368712', 'Hoang Mai', 'duyvd', '123456', '1');
 

@@ -1,16 +1,18 @@
 package com.example.eparking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_customer")
-public class Customer {
+@Table(name = "tbl_user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +35,14 @@ public class Customer {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany()
+    @JoinColumn(name = "userid", referencedColumnName = "id")
+    private List<Car> listCar;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roleid")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Role role;
 
 }

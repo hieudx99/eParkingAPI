@@ -12,4 +12,9 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
 
     @Query("FROM Bill as b WHERE b.user.id = ?1 AND b.createDate BETWEEN ?2 AND ?3")
     List<Bill> getUserParkingHistory(int userid, String startDate, String endDate);
+
+//    @Query("FROM Bill as b WHERE b.parkingSlot.id = ?1 ORDER BY b.createDate DESC")
+//    Bill getBillByParkingSlotId(int parkingSlotId);
+
+    Bill findFirstByParkingSlot_IdOrderByCreateDateDesc(int parkingSlotId);
 }

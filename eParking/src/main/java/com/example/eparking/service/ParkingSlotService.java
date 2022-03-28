@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ParkingSlotService {
     List<ParkingSlot> findAll();
+    Integer updateStatusDisable(int parkingSlotId);
+    Integer updateStatusEnable(int parkingSlotId);
 }

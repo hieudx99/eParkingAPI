@@ -15,8 +15,23 @@ public class ParkingSlotServiceImp implements ParkingSlotService {
     @Autowired
     ParkingSlotRepository parkingSlotRepository;
 
+    public ParkingSlotServiceImp(ParkingSlotRepository parkingSlotRepository) {
+        this.parkingSlotRepository = parkingSlotRepository;
+    }
+
     @Override
     public List<ParkingSlot> findAll() {
         return parkingSlotRepository.findAll(Sort.by("name").ascending());
+    }
+
+
+    @Override
+    public Integer updateStatusEnable(int parkingSlotId) {
+        return parkingSlotRepository.updateStatusEnable(parkingSlotId);
+    }
+
+    @Override
+    public Integer updateStatusDisable(int parkingSlotID) {
+        return parkingSlotRepository.updateStatusDisable(parkingSlotID);
     }
 }

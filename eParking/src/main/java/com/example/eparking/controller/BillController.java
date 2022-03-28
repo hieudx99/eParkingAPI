@@ -7,6 +7,7 @@ import com.example.eparking.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -17,13 +18,18 @@ public class BillController {
     BillService billService;
 
     @PostMapping("/create-bill")
-    public Bill createBill(@RequestBody Bill bill) {
+    public Bill createBill(@RequestBody Bill bill) throws ParseException {
         return billService.createBill(bill);
     }
 
     @GetMapping("/parking-history")
     public List<Bill> getUserParkingHistory(@RequestParam int userid, @RequestBody StartEndDateDTO dates) {
         return billService.getUserParkingHistory(userid, dates.getStartDate(), dates.getEndDate());
+    }
+
+    @GetMapping("/get-bill-by-parking-slot")
+    public Bill getBillByParkingSlotId(@RequestParam int parkingSlotId) {
+        return billService.getBillByParkingSlotId(parkingSlotId);
     }
 
 }

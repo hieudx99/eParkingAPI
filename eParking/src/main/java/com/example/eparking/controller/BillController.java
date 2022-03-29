@@ -1,7 +1,6 @@
 package com.example.eparking.controller;
 
 import com.example.eparking.model.Bill;
-import com.example.eparking.model.PaymentMethod;
 import com.example.eparking.model.dto.StartEndDateDTO;
 import com.example.eparking.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +30,7 @@ public class BillController {
     public Bill getBillByParkingSlotId(@RequestParam int parkingSlotId) {
         return billService.getBillByParkingSlotId(parkingSlotId);
     }
+
+
 
 }

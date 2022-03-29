@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "c0ec62fd-7a9c-4c32-ad5e-4850023ff281",
+		"name": "eParking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "FindByID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Do Xuan Hieu\",\r\n    \"identityCard\":\"038011223344\",\r\n    \"telephone\":\"0976199402\",\r\n    \"address\":\"Bac Tu Liem\",\r\n    \"username\":\"hieudx1\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/eParking/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eParking",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindByUsername",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "SearchUserByName",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ParkingSlot",
+			"item": [
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bill",
+			"item": [
+				{
+					"name": "CreateBill",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startTime\": \"2022-03-28 00:01:00\",\r\n  \"endTime\": \"2022-03-29  00:02:00\",\r\n  \"total\": 50000.0,\r\n  \"paymentStatus\": \"O\",\r\n  \"user\": {\r\n    \"id\": 1,\r\n    \"fullname\": \"Do Xuan Hieu\",\r\n    \"identityCard\": \"038011223344\",\r\n    \"telephone\": \"0976199402\",\r\n    \"address\": \"Bac Tu Liem\",\r\n    \"username\": \"hieudx1\",\r\n    \"password\": \"$2a$10$hj2cMU6DYwSWzasr87Lyh.am2Wg.4E.WRDanUyQQHQuJelQ9X4tjm\",\r\n    \"listCar\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"VINFAST LUX  A2.0\",\r\n            \"color\": \"Brahminy White\",\r\n            \"brand\": \"Vin\",\r\n            \"licensePlate\": \"30A-686.86\",\r\n            \"seatNumber\": 4\r\n        }\r\n    ],\r\n    \"role\": {\r\n        \"id\": 1,\r\n        \"name\": \"user\"\r\n    }\r\n  },\r\n  \"car\": {\r\n    \"id\": 1,\r\n    \"name\": \"VINFAST LUX  A2.0\",\r\n    \"color\": \"Brahminy White\",\r\n    \"brand\": \"Vin\",\r\n    \"licensePlate\": \"30A-686.86\",\r\n    \"seatNumber\": 4\r\n  },\r\n  \"parkingSlot\": {\r\n    \"id\": 1,\r\n        \"name\": \"A1\",\r\n        \"status\": \"O\"\r\n  },\r\n  \"paymentMethod\": {\r\n    \"id\": 1,\r\n    \"name\": \"VNPAY\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/eParking/bill/create-bill",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eParking",
+								"bill",
+								"create-bill"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserParkingHistory",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GetBillByParkingSlot",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PaymentMethod",
+			"item": [
+				{
+					"name": "GetListPaymentMethod",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/eParking/payment-method/get-list-payment-method",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eParking",
+								"payment-method",
+								"get-list-payment-method"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserStat",
+			"item": [
+				{
+					"name": "GetListUserStat",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Connection",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

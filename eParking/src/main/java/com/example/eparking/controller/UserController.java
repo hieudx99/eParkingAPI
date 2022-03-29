@@ -6,6 +6,7 @@ import com.example.eparking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,6 +40,11 @@ public class UserController {
     @PostMapping("/update-info")
     public User updateInfo(@RequestBody User user) {
         return userService.updateInfo(user);
+    }
+
+    @GetMapping("/search-user")
+    public List<User> searchUserByName(@RequestParam String kw) {
+        return userService.searchUserByName(kw);
     }
 
 

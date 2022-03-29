@@ -17,4 +17,6 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
 //    Bill getBillByParkingSlotId(int parkingSlotId);
 
     Bill findFirstByParkingSlot_IdOrderByCreateDateDesc(int parkingSlotId);
+
+
 }

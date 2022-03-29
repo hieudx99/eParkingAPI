@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 @Service
 public class BillServiceImp implements BillService {
@@ -78,19 +77,4 @@ public class BillServiceImp implements BillService {
     }
 }
 
-class TaskBillTimer extends TimerTask {
 
-    private int parkingSlotId;
-    private ParkingSlotService parkingSlotService;
-
-    public TaskBillTimer(int parkingSlotId, ParkingSlotService parkingSlotService) {
-        this.parkingSlotId = parkingSlotId;
-        this.parkingSlotService = parkingSlotService;
-    }
-
-
-    @Override
-    public void run() {
-        this.parkingSlotService.updateStatusEnable(this.parkingSlotId);
-    }
-}

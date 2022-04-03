@@ -83,6 +83,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public List<User> searchUserByName(String kw) {
-        return userRepository.findAllByFullnameContaining(kw);
+        return userRepository.findUserByKw(kw);
     }
 }

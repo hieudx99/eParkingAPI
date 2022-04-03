@@ -12,8 +12,6 @@ import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -31,9 +29,9 @@ public class BillServiceImp implements BillService {
     @Transactional
     @Override
     public Bill createBill(Bill bill) throws ParseException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String createdAt = dtf.format(now);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        String createdAt = simpleDateFormat.format(now);
         bill.setCreateDate(createdAt);
         Bill billResponse = billRepository.saveAndFlush(bill);
         if (billResponse != null) {
@@ -41,10 +39,8 @@ public class BillServiceImp implements BillService {
             parkingSlotService.updateStatusDisable(bill.getParkingSlot().getId());
 
             //tao task enable parking slot sau khi bill het thoi gian
-            Date start = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-                    .parse(billResponse.getStartTime());
-            Date end = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-                    .parse(billResponse.getEndTime());
+            Date start = simpleDateFormat.parse(billResponse.getCreateDate());
+            Date end = simpleDateFormat.parse(billResponse.getEndTime());
             Duration diff = Duration.between(start.toInstant(), end.toInstant());
             TaskBillTimer task = new TaskBillTimer(
                     billResponse.getParkingSlot().getId(),
@@ -58,7 +54,6 @@ public class BillServiceImp implements BillService {
     }
 
     @Override
-
     public List<Bill> getUserParkingHistory(int userid, String startDate, String endDate) {
         return billRepository.getUserParkingHistory(userid, startDate, endDate);
 //        List<Bill> listBill = new ArrayList<>();

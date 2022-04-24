@@ -3,12 +3,25 @@ package com.example.eparking.service.imp;
 import com.example.eparking.model.Role;
 import com.example.eparking.model.User;
 import com.example.eparking.repository.UserRepository;
+import com.example.eparking.security.JwtConfig;
 import com.example.eparking.service.UserService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,18 +32,24 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private JwtConfig jwtConfig;
 
 
     @Override
-    public User findByUsernameAndPassword(String username, String password) {
+    public ResponseEntity<User> findByUsernameAndPassword(String username, String password) {
         Optional<User> userOpt = userRepository.findUserByUsername(username);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return user;
+                String token = generateToken(user);
+                return ResponseEntity.ok().header(jwtConfig.getHeader(), token).body(user);
             }
         }
         return null;
+
     }
 
     @Override
@@ -84,5 +103,65 @@ public class UserServiceImp implements UserService {
     @Override
     public List<User> searchUserByName(String kw) {
         return userRepository.findUserByKw(kw);
+    }
+
+    @Override
+    public ResponseEntity<User> google(String googleAccessToken) {
+        String fullname = "";
+        String email = "";
+        String token = "";
+        User user = null;
+        googleAccessToken = googleAccessToken.substring(1, googleAccessToken.length()-1);
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections.singletonList("79214693346-ndqme1517s4falshkdhhd86mm24d8d9g.apps.googleusercontent.com"))
+                .build();
+
+        try {
+            GoogleIdToken idToken = verifier.verify(googleAccessToken);
+            if (idToken != null) {
+                GoogleIdToken.Payload payload = idToken.getPayload();
+                email = payload.getEmail();
+                fullname = (String) payload.get("name");
+            }
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Optional<User> userOpt = userRepository.findUserByEmail(email);
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+            token = generateToken(user);
+        }
+        else {
+            Role role = new Role(1, "");
+            User userTemp = User.builder()
+                    .username(email)
+                    .email(email)
+                    .password(passwordEncoder.encode("123456"))
+                    .fullname(fullname)
+                    .role(role)
+                    .build();
+            user = userRepository.saveAndFlush(userTemp);
+            token = generateToken(user);
+        }
+
+//        String url = "https://oauth2.googleapis.com/tokeninfo?id_token=";
+//        url += googleAccessToken;
+//        GoogleUser googleUser = restTemplate.getForObject(url, GoogleUser.class);
+//        String email = googleUser.getEmail();
+//        System.out.println(googleUser);
+        return ResponseEntity.ok().header(jwtConfig.getHeader(),token).body(user);
+    }
+
+
+    private String generateToken(User user) {
+        Long now = System.currentTimeMillis();
+        String token = Jwts.builder().setSubject(user.getEmail())
+                .setIssuedAt(new Date(now))
+                .setExpiration(new Date(now + jwtConfig.getExpiration()*1000))
+                .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
+                .compact();
+        return jwtConfig.getPrefix() + token;
     }
 }

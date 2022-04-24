@@ -1,9 +1,10 @@
 package com.example.eparking.controller;
 
 import com.example.eparking.model.User;
-import com.example.eparking.model.dto.Credential;
+import com.example.eparking.model.dto.UserCredential;
 import com.example.eparking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public User checkLogin(@RequestBody Credential credential) {
+    @PostMapping("/auth/login")
+    public ResponseEntity<User> checkLogin(@RequestBody UserCredential credential) {
         return userService.findByUsernameAndPassword
                 (credential.getUsername(), credential.getPassword());
     }
@@ -37,7 +38,7 @@ public class UserController {
         return userService.register(user);
     }
 
-    @PostMapping("/update-info")
+    @PutMapping("/update-info")
     public User updateInfo(@RequestBody User user) {
         return userService.updateInfo(user);
     }
@@ -45,6 +46,11 @@ public class UserController {
     @GetMapping("/search-user")
     public List<User> searchUserByName(@RequestParam String kw) {
         return userService.searchUserByName(kw);
+    }
+
+    @PostMapping("/auth/google")
+    public ResponseEntity<User> google(@RequestBody String googleAccessToken) {
+        return userService.google(googleAccessToken);
     }
 
 

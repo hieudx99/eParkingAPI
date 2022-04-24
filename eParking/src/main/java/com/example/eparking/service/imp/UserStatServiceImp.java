@@ -45,7 +45,7 @@ public class UserStatServiceImp implements UserStatService {
                     Optional<User> userOpt =  userService.findById(userId);
                     if (userOpt.isPresent()) {
                         User user = userOpt.get();
-                        UserStat userStat = new UserStat(user.getId(), user.getFullname(),
+                        UserStat userStat = new UserStat(user.getId(), user.getFullname(), "",
                                 user.getIdentityCard(), user.getTelephone(), user.getAddress(),
                                 user.getUsername(), user.getPassword(), user.getListCar(), user.getRole(),
                                 rentTimes, rentTotal);

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Credential {
+public class UserCredential {
     private String username;
     private String password;
 }

@@ -21,7 +21,7 @@ public class BillController {
         return billService.createBill(bill);
     }
 
-    @GetMapping("/parking-history")
+    @PostMapping("/parking-history")
     public List<Bill> getUserParkingHistory(@RequestParam int userid, @RequestBody StartEndDateDTO dates) {
         return billService.getUserParkingHistory(userid, dates.getStartDate(), dates.getEndDate());
     }

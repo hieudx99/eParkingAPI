@@ -6,8 +6,8 @@ public class UserStat extends User{
     private int rentTimes;
     private double rentTotal;
 
-    public UserStat(int id, String fullname, String identityCard, String telephone, String address, String username, String password, List<Car> listCar, Role role, int rentTimes, double rentTotal) {
-        super(id, fullname, identityCard, telephone, address, username, password, listCar, role);
+    public UserStat(int id, String fullname, String email, String identityCard, String telephone, String address, String username, String password, List<Car> listCar, Role role, int rentTimes, double rentTotal) {
+        super(id, fullname, email, identityCard, telephone, address, username, password, listCar, role);
         this.rentTimes = rentTimes;
         this.rentTotal = rentTotal;
     }

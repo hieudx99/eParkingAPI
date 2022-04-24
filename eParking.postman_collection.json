@@ -69,6 +69,44 @@
 						"header": []
 					},
 					"response": []
+				},
+				{
+					"name": "UpdateInfo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"fullname\": \"Đỗ Xuân Hiếu\",\r\n    \"identityCard\": \"038011223344\",\r\n    \"telephone\": \"0976199402\",\r\n    \"address\": \"Bắc Từ Liêm\",\r\n    \"username\": \"hieudx1\",\r\n    \"password\": \"$2a$10$hj2cMU6DYwSWzasr87Lyh.am2Wg.4E.WRDanUyQQHQuJelQ9X4tjm\",\r\n    \"listCar\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"VINFAST LUX  A2.0\",\r\n            \"color\": \"Brahminy White\",\r\n            \"brand\": \"Vin\",\r\n            \"licensePlate\": \"30A-686.86\",\r\n            \"seatNumber\": 4\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Honda City\",\r\n            \"color\": \"Red\",\r\n            \"brand\": \"Honda\",\r\n            \"licensePlate\": \"30A-555.55\",\r\n            \"seatNumber\": 4\r\n        }\r\n    ],\r\n    \"role\": {\r\n        \"id\": 1,\r\n        \"name\": \"user\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/eParking/user/update-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eParking",
+								"user",
+								"update-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GoogleLogin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -95,7 +133,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"startTime\": \"2022-03-28 00:01:00\",\r\n  \"endTime\": \"2022-03-29  00:02:00\",\r\n  \"total\": 50000.0,\r\n  \"paymentStatus\": \"O\",\r\n  \"user\": {\r\n    \"id\": 1,\r\n    \"fullname\": \"Do Xuan Hieu\",\r\n    \"identityCard\": \"038011223344\",\r\n    \"telephone\": \"0976199402\",\r\n    \"address\": \"Bac Tu Liem\",\r\n    \"username\": \"hieudx1\",\r\n    \"password\": \"$2a$10$hj2cMU6DYwSWzasr87Lyh.am2Wg.4E.WRDanUyQQHQuJelQ9X4tjm\",\r\n    \"listCar\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"VINFAST LUX  A2.0\",\r\n            \"color\": \"Brahminy White\",\r\n            \"brand\": \"Vin\",\r\n            \"licensePlate\": \"30A-686.86\",\r\n            \"seatNumber\": 4\r\n        }\r\n    ],\r\n    \"role\": {\r\n        \"id\": 1,\r\n        \"name\": \"user\"\r\n    }\r\n  },\r\n  \"car\": {\r\n    \"id\": 1,\r\n    \"name\": \"VINFAST LUX  A2.0\",\r\n    \"color\": \"Brahminy White\",\r\n    \"brand\": \"Vin\",\r\n    \"licensePlate\": \"30A-686.86\",\r\n    \"seatNumber\": 4\r\n  },\r\n  \"parkingSlot\": {\r\n    \"id\": 1,\r\n        \"name\": \"A1\",\r\n        \"status\": \"O\"\r\n  },\r\n  \"paymentMethod\": {\r\n    \"id\": 1,\r\n    \"name\": \"VNPAY\"\r\n  }\r\n}",
+							"raw": "{\r\n  \"startTime\": \"2022-03-28 00:01:00\",\r\n  \"endTime\": \"2022-03-28  00:01:15\",\r\n  \"total\": 50000.0,\r\n  \"paymentStatus\": \"O\",\r\n  \"user\": {\r\n    \"id\": 1,\r\n    \"fullname\": \"Do Xuan Hieu\",\r\n    \"identityCard\": \"038011223344\",\r\n    \"telephone\": \"0976199402\",\r\n    \"address\": \"Bac Tu Liem\",\r\n    \"username\": \"hieudx1\",\r\n    \"password\": \"$2a$10$hj2cMU6DYwSWzasr87Lyh.am2Wg.4E.WRDanUyQQHQuJelQ9X4tjm\",\r\n    \"listCar\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"VINFAST LUX  A2.0\",\r\n            \"color\": \"Brahminy White\",\r\n            \"brand\": \"Vin\",\r\n            \"licensePlate\": \"30A-686.86\",\r\n            \"seatNumber\": 4\r\n        }\r\n    ],\r\n    \"role\": {\r\n        \"id\": 1,\r\n        \"name\": \"user\"\r\n    }\r\n  },\r\n  \"car\": {\r\n    \"id\": 1,\r\n    \"name\": \"VINFAST LUX  A2.0\",\r\n    \"color\": \"Brahminy White\",\r\n    \"brand\": \"Vin\",\r\n    \"licensePlate\": \"30A-686.86\",\r\n    \"seatNumber\": 4\r\n  },\r\n  \"parkingSlot\": {\r\n    \"id\": 1,\r\n        \"name\": \"A1\",\r\n        \"status\": \"O\"\r\n  },\r\n  \"paymentMethod\": {\r\n    \"id\": 1,\r\n    \"name\": \"VNPAY\"\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -176,6 +214,83 @@
 			]
 		},
 		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "addCar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"VINFAST LUX  A3.5\",\r\n    \"color\": \"White\",\r\n    \"brand\": \"Vin\",\r\n    \"licensePlate\": \"30A-111.33\",\r\n    \"seatNumber\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/eParking/car/add-car",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eParking",
+								"car",
+								"add-car"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCarByID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "updateCar",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brand",
+			"item": [
+				{
+					"name": "Get List Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/eParking/brand/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"eParking",
+								"brand",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Test Connection",
 			"request": {
 				"method": "GET",
@@ -185,4 +300,3 @@
 		}
 	]
 }
-

@@ -55,6 +55,8 @@ public class BillServiceImp implements BillService {
 
     @Override
     public List<Bill> getUserParkingHistory(int userid, String startDate, String endDate) {
+        startDate = startDate + " 00:00:00";
+        endDate = endDate + " 23:59:59";
         return billRepository.getUserParkingHistory(userid, startDate, endDate);
 //        List<Bill> listBill = new ArrayList<>();
 //        String sql = "SELECT * FROM tbl_bill b\n" +

@@ -28,6 +28,8 @@ public class UserStatServiceImp implements UserStatService {
 
     @Override
     public List<UserStat> getListUserStat(String startDate, String endDate) {
+        startDate = startDate + " 00:00:00";
+        endDate = endDate + " 23:59:59";
         List<UserStat> listUserStat = new ArrayList<>();
         String sql = "SELECT SUM(b.total) rent_total, COUNT(*) rent_times, b.userid\n" +
                 "FROM tbl_bill b LEFT JOIN tbl_user u on u.id = b.userid\n" +

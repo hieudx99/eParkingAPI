@@ -29,7 +29,7 @@ public class User {
     private String email;
 
     @Column(name = "identity_card")
-    private String identityCard;
+    private String identityCard;    
 
     @Column(name = "telephone", unique = true)
     private String telephone;

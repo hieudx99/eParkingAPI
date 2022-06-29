@@ -14,5 +14,5 @@ public interface UserService {
     User updateInfo(User user);
     List<User> searchUserByName(String kw);
     ResponseEntity<User> google(String googleAccessToken);
-
+    ResponseEntity<User> facebook(String facebookAccessToken);
 }

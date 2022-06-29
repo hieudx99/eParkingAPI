@@ -1,5 +1,6 @@
 package com.example.eparking.service.imp;
 
+import com.example.eparking.model.FacebookUserModel;
 import com.example.eparking.model.Role;
 import com.example.eparking.model.User;
 import com.example.eparking.repository.UserRepository;
@@ -12,6 +13,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
+
 @Service
 public class UserServiceImp implements UserService {
 
@@ -33,9 +38,9 @@ public class UserServiceImp implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
     private JwtConfig jwtConfig;
+    @Autowired
+    private WebClient webClient;
 
 
     @Override
@@ -151,6 +156,43 @@ public class UserServiceImp implements UserService {
 //        GoogleUser googleUser = restTemplate.getForObject(url, GoogleUser.class);
 //        String email = googleUser.getEmail();
 //        System.out.println(googleUser);
+        return ResponseEntity.ok().header(jwtConfig.getHeader(),token).body(user);
+    }
+
+    @Override
+    public ResponseEntity<User> facebook(String facebookAccessToken) {
+        String fullname = "";
+        String email = "";
+        String token = "";
+        User user = null;
+        facebookAccessToken = facebookAccessToken.substring(1, facebookAccessToken.length()-1);
+        String templateUrl = String.format("https://graph.facebook.com/me?fields=email,first_name,last_name&access_token=%s", facebookAccessToken);
+        FacebookUserModel facebookUserModel = webClient.get().uri(templateUrl).retrieve()
+                .onStatus(HttpStatus::isError, clientResponse -> {
+                    throw new ResponseStatusException(clientResponse.statusCode(), "facebook login error");
+                })
+                .bodyToMono(FacebookUserModel.class)
+                .block();
+        email = facebookUserModel.getEmail();
+        fullname = facebookUserModel.getFirstName() + " " + facebookUserModel.getLastName();
+        Optional<User> userOpt = userRepository.findUserByEmail(email);
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+            token = generateToken(user);
+        }
+        else {
+            Role role = new Role(1, "");
+            User userTemp = User.builder()
+                    .username(email)
+                    .email(email)
+                    .password(passwordEncoder.encode("123456"))
+                    .fullname(fullname)
+                    .role(role)
+                    .build();
+            user = userRepository.saveAndFlush(userTemp);
+            token = generateToken(user);
+        }
+
         return ResponseEntity.ok().header(jwtConfig.getHeader(),token).body(user);
     }
 

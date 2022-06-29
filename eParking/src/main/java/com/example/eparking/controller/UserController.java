@@ -53,5 +53,10 @@ public class UserController {
         return userService.google(googleAccessToken);
     }
 
+    @PostMapping("/auth/facebook")
+    public ResponseEntity<User> facebook(@RequestBody String facebookAccessToken) {
+        return userService.facebook(facebookAccessToken);
+    }
+
 
 }
